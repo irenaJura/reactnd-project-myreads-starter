@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import './App.css'
 
 class ListBooks extends Component {
-  state = {
-    showSearchPage: false
-  }
-
   render() {
     return (
         <div className="list-books">
+
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
+
             <div className="list-books-content">
               <div>
+
+
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
+
                       <li>
                         <div className="book">
                           <div className="book-top">
@@ -37,6 +37,7 @@ class ListBooks extends Component {
                           <div className="book-authors">Harper Lee</div>
                         </div>
                       </li>
+
                       <li>
                         <div className="book">
                           <div className="book-top">
@@ -55,13 +56,17 @@ class ListBooks extends Component {
                           <div className="book-authors">Orson Scott Card</div>
                         </div>
                       </li>
+
                     </ol>
                   </div>
                 </div>
+
+
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
+
                       <li>
                         <div className="book">
                           <div className="book-top">
@@ -80,6 +85,7 @@ class ListBooks extends Component {
                           <div className="book-authors">David McCullough</div>
                         </div>
                       </li>
+
                       <li>
                         <div className="book">
                           <div className="book-top">
@@ -98,13 +104,17 @@ class ListBooks extends Component {
                           <div className="book-authors">J.K. Rowling</div>
                         </div>
                       </li>
+
                     </ol>
                   </div>
                 </div>
+
+
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
+
                       <li>
                         <div className="book">
                           <div className="book-top">
@@ -123,6 +133,7 @@ class ListBooks extends Component {
                           <div className="book-authors">J.R.R. Tolkien</div>
                         </div>
                       </li>
+
                       <li>
                         <div className="book">
                           <div className="book-top">
@@ -141,6 +152,7 @@ class ListBooks extends Component {
                           <div className="book-authors">Seuss</div>
                         </div>
                       </li>
+
                       <li>
                         <div className="book">
                           <div className="book-top">
@@ -159,14 +171,18 @@ class ListBooks extends Component {
                           <div className="book-authors">Mark Twain</div>
                         </div>
                       </li>
+
                     </ol>
                   </div>
                 </div>
+
               </div>
             </div>
+
             <div className="open-search">
-              <Link to="/searchpage" onClick={() => this.setState({ showSearchPage: true })}>Add a book</Link>
+              <Link to="/searchpage" onClick={() => this.props.books.setState({ books: [] })}>Add a book</Link>
             </div>
+
           </div>
     );
   }
