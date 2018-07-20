@@ -11,11 +11,24 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-  BooksAPI.getAll().then((data) => {
-    console.log(data);
-    this.setState({ books: data }) 
-  })
+    BooksAPI.getAll().then(data => {
+      console.log(data);
+      this.setState({ books: data });
+    });
   }
+
+  changeShelf = (e, book) => {
+    console.log(e.target.value);
+    const books = this.state.books;
+    book.shelf = e.target.value;
+    this.setState({ books });
+
+    BooksAPI.update(book, e.target.value).then(() => {
+      this.setState(prevState => ({
+        books: prevState.books.filter(b => b.id !== book.id).concat([book])
+      }));
+    });
+  };
 
   render() {
     return (
@@ -24,9 +37,7 @@ class BooksApp extends React.Component {
           <SearchPage books={this.state.books} />
           )} />
         <Route exact path="/" render={() => (
-          <div>
-            <ListBooks books={this.state.books} />
-          </div>
+          <ListBooks books={this.state.books} changeShelf={this.changeShelf} />
           )} />
       </div>
     )
