@@ -12,13 +12,13 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll().then(data => {
-      console.log(data);
+      // console.log(data);
       this.setState({ books: data });
     });
   }
 
   changeShelf = (e, book) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     const books = this.state.books;
     book.shelf = e.target.value;
     this.setState({ books });
@@ -33,7 +33,7 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Route path="/searchpage" render={() => (
+        <Route path="/search" render={() => (
           <SearchPage books={this.state.books} />
           )} />
         <Route exact path="/" render={() => (

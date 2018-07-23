@@ -26,7 +26,7 @@ class ListBooks extends Component {
               </div>
             </div>
             <div className="open-search">
-              <Link to="/searchpage" onClick={() => this.props.books.setState({ books: [] })}>Add a book</Link>
+              <Link to="/search" onClick={() => this.props.books.setState({ books: [] })}>Add a book</Link>
             </div>
           </div>
     );
