@@ -14,16 +14,16 @@ class SearchPage extends Component {
   queryBooks = query => {
     let queriedBooks = [];
     
-    this.setState({
-      query: query.trim()
-    });
 
     if (query) {
       let queryResults = [];
 
       BooksAPI.search(query).then(data => {
         if (data && data.length) {
-          queryResults = data;
+          queryResults = data.map(data => {
+            data.shelf = this.addShelf(data);
+            return data;
+          });
 
           this.setState({
             queriedBooks: queryResults
@@ -41,16 +41,22 @@ class SearchPage extends Component {
       });
     }
 
+  this.setState({
+      query: query.trim()
+    });
   };
 
+  addShelf(data) {
+    let hasShelf = this.props.books.filter(book => book.id === data.id);
+    return hasShelf.length ? hasShelf[0].shelf : "none";
+  }
 
   render() {
-   
-
+  
     return (
         <div className="search-books">
           <div className="search-books-bar">
-          <Link to="/" className="close-search" onClick={() => this.props.books.setState({ books: [] })}>Close</Link>
+          <Link to="/" className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</Link>
           <div className="search-books-input-wrapper">
             {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -66,7 +72,8 @@ class SearchPage extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            <Book filtered={this.state.queriedBooks} changeShelf={this.props.changeShelf} />
+          {this.state.queriedBooks.length > 0 &&
+            <Book filtered={this.state.queriedBooks} changeShelf={this.props.changeShelf} />}
           </ol>
         </div>
       </div>

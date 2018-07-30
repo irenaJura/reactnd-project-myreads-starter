@@ -7,12 +7,13 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: [],
+    showSearchPage: true
   }
 
   componentDidMount() {
     BooksAPI.getAll().then(data => {
-      // console.log(data);
+      console.log(data);
       this.setState({ books: data });
     });
   }
@@ -34,7 +35,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route path="/search" render={() => (
-          <SearchPage books={this.state.books} />
+          <SearchPage books={this.state.books} changeShelf={this.changeShelf} />
           )} />
         <Route exact path="/" render={() => (
           <ListBooks books={this.state.books} changeShelf={this.changeShelf} />
