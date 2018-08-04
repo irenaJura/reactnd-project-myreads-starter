@@ -9,7 +9,9 @@ To get started developing I had to:
 * start the development server with `npm start`
 
 
-## The App contains 3 bookshelves: Currently reading, Want to read and Read. User can switch the books between shelves according to his/her choices. There is a search page, but only certain terms will get you results (see below). On the search page the books will be placed into category “none”, except those that are already on a specific shelf. Those will have that shelf shown as default upon clicking on the button for categories.
+## Description
+
+The App contains 3 bookshelves: Currently reading, Want to read and Read. User can switch the books between shelves according to his/her choices. There is a search page, but only certain terms will get you results (see below). On the search page the books will be placed into category “none”, except those that are already on a specific shelf. Those will have that shelf shown as default upon clicking on the button for categories.
 
 ## Backend Server
 

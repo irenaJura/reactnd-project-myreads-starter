@@ -14,6 +14,7 @@ class SearchPage extends Component {
     if (query) {
       let queryResults = [];
 
+      // filter only those books that have imageLinks property to avoid errors
       BooksAPI.search(query).then(data => {
 
         if (data && data.length) {
@@ -35,14 +36,15 @@ class SearchPage extends Component {
 
     this.setState({ query: query.trim() });
   };
-
+  
+  // addShelf to books that already have been assigned a shelf, otherwise show none as default
+  // with help of https://github.com/dandenney/my-reads/blob/master/src/SearchBooks.js
   addShelf(searchedBook) {
     let hasShelf = this.props.books.filter(book => book.id === searchedBook.id);
     return hasShelf.length ? hasShelf[0].shelf : "none";
   }
 
   render() {
-  
     return (
         <div className="search-books">
           <div className="search-books-bar">
@@ -57,7 +59,6 @@ class SearchPage extends Component {
               you don't find a specific author or title. Every search is limited by search terms.
             */}
             <input type="text" placeholder="Search by title or author" onChange={(event) => this.queryBooks(event.target.value)} />
-
           </div>
         </div>
         <div className="search-books-results">

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-
+// map though filtered books to render them on the page
 class Book extends Component {
   render() {
     return (

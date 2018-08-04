@@ -11,19 +11,21 @@ class BooksApp extends React.Component {
     showSearchPage: true
   }
 
+  // lifecycle event to make sure component has mounted before API call
   componentDidMount() {
     BooksAPI.getAll().then(data => {
-      //console.log(data);
+      //console.log(data); => get the object info in the console
       this.setState({ books: data });
     });
   }
 
   changeShelf = (e, book) => {
-    // console.log(e.target.value);
+    // console.log(e.target.value); => get the value of tageted event
     const books = this.state.books;
     book.shelf = e.target.value;
     this.setState({ books });
 
+    // update books according to previous state
     BooksAPI.update(book, e.target.value).then(() => {
       this.setState(prevState => ({
         books: prevState.books.filter(b => b.id !== book.id).concat([book])
