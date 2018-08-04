@@ -2,52 +2,42 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Book from './Book'
 import * as BooksAPI from './BooksAPI'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
 
 class SearchPage extends Component {
   state = {
     query: "",
-    queriedBooks: []
+    searchBooks: []
   }
-
+   
   queryBooks = query => {
-    let queriedBooks = [];
     
-
     if (query) {
       let queryResults = [];
 
       BooksAPI.search(query).then(data => {
+
         if (data && data.length) {
-          queryResults = data.map(data => {
-            data.shelf = this.addShelf(data);
-            return data;
+          queryResults = data.filter(searchedBook => searchedBook.imageLinks).map(searchedBook => {
+            searchedBook.shelf = this.addShelf(searchedBook);
+            return searchedBook;
           });
 
-          this.setState({
-            queriedBooks: queryResults
-          });
-        } else {
-          this.setState({
-            queriedBooks: []
-          });
+          this.setState({ searchBooks: queryResults });
+
+          } else {
+
+          this.setState({ searchBooks: [] });
+
         }
       });
 
-    } else {
-      this.setState({
-        queriedBooks: []
-      });
-    }
+    } 
 
-  this.setState({
-      query: query.trim()
-    });
+    this.setState({ query: query.trim() });
   };
 
-  addShelf(data) {
-    let hasShelf = this.props.books.filter(book => book.id === data.id);
+  addShelf(searchedBook) {
+    let hasShelf = this.props.books.filter(book => book.id === searchedBook.id);
     return hasShelf.length ? hasShelf[0].shelf : "none";
   }
 
@@ -72,8 +62,8 @@ class SearchPage extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-          {this.state.queriedBooks.length > 0 &&
-            <Book filtered={this.state.queriedBooks} changeShelf={this.props.changeShelf} />}
+          {this.state.searchBooks.length > 0 &&
+            <Book filtered={this.state.searchBooks} changeShelf={this.props.changeShelf} />}
           </ol>
         </div>
       </div>

@@ -13,7 +13,7 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll().then(data => {
-      console.log(data);
+      //console.log(data);
       this.setState({ books: data });
     });
   }
@@ -41,7 +41,7 @@ class BooksApp extends React.Component {
           <ListBooks books={this.state.books} changeShelf={this.changeShelf} />
           )} />
       </div>
-    )
+      )
   }
 }
 
