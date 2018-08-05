@@ -14,7 +14,7 @@ class BooksApp extends React.Component {
   // lifecycle event to make sure component has mounted before API call
   componentDidMount() {
     BooksAPI.getAll().then(data => {
-      //console.log(data); => get the object info in the console
+      console.log(data); 
       this.setState({ books: data });
     });
   }

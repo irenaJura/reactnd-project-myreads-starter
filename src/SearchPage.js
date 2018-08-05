@@ -10,15 +10,15 @@ class SearchPage extends Component {
   }
    
   queryBooks = query => {
-    
+    //console.log(this.state.query);
     if (query) {
       let queryResults = [];
 
-      // filter only those books that have imageLinks property to avoid errors
+      // search books and add shelf to them
       BooksAPI.search(query).then(data => {
 
         if (data && data.length) {
-          queryResults = data.filter(searchedBook => searchedBook.imageLinks).map(searchedBook => {
+          queryResults = data.map(searchedBook => {
             searchedBook.shelf = this.addShelf(searchedBook);
             return searchedBook;
           });
@@ -27,12 +27,15 @@ class SearchPage extends Component {
 
           } else {
 
-          this.setState({ searchBooks: [] });
+          this.setState({ searchBooks: [] })
 
         }
       });
 
-    } 
+    }  else {
+
+      this.setState({ searchBooks: [] });
+    }
 
     this.setState({ query: query.trim() });
   };
@@ -63,8 +66,11 @@ class SearchPage extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-          {this.state.searchBooks.length > 0 &&
-            <Book filtered={this.state.searchBooks} changeShelf={this.props.changeShelf} />}
+          { this.state.searchBooks.length === 0 && 
+            <p>No books found</p> ||
+            this.state.searchBooks.length > 0 &&
+            <Book filtered={this.state.searchBooks} changeShelf={this.props.changeShelf} />
+          }
           </ol>
         </div>
       </div>
